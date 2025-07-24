@@ -390,11 +390,11 @@ p {
    IMPORT MODULAR SECTIONS
    ===================================*/
 
-@import url('sections/_header.css');
-@import url('sections/_hero.css');
-@import url('sections/_theme-showcase.css');
-@import url('sections/_additional-sections.css');
-@import url('sections/_footer.css');
+@import url('sections/header.css');
+@import url('sections/hero.css');
+@import url('sections/theme-showcase.css');
+@import url('sections/additional-sections.css');
+@import url('sections/footer.css');
 
 /* ===================================
    ACCESSIBILITY
