@@ -394,6 +394,7 @@ p {
 @import url('sections/_hero.css');
 @import url('sections/_theme-showcase.css');
 @import url('sections/_additional-sections.css');
+@import url('sections/_footer.css');
 
 /* ===================================
    ACCESSIBILITY

@@ -31,10 +31,11 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/sections/_hero.css">
-    <link rel="stylesheet" href="assets/css/sections/_theme-showcase.css">
-    <link rel="stylesheet" href="assets/css/sections/_additional-sections.css">
-    <link rel="stylesheet" href="assets/css/sections/_header.css">
+    <link rel="stylesheet" href="assets/css/sections/footer.css">
+    <link rel="stylesheet" href="assets/css/sections/hero.css">
+    <link rel="stylesheet" href="assets/css/sections/theme-showcase.css">
+    <link rel="stylesheet" href="assets/css/sections/additional-sections.css">
+    <link rel="stylesheet" href="assets/css/sections/header.css">
 
 </head>
 
@@ -922,4 +923,135 @@
                                 <i class="fab fa-facebook-f"></i>
                             </a>
                             <a href="#" class="social-link" aria-label="تويتر">
-                      
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="إنستغرام">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="لينكد إن">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="يوتيوب">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links Column -->
+                    <div class="footer-column">
+                        <h4 class="footer-title">روابط سريعة</h4>
+                        <ul class="footer-links">
+                            <li><a href="#theme-showcase"><i class="fas fa-chevron-left"></i>القوالب</a></li>
+                            <li><a href="#steps"><i class="fas fa-chevron-left"></i>خطوات البدء</a></li>
+                            <li><a href="#why-choose"><i class="fas fa-chevron-left"></i>لماذا متكامل؟</a></li>
+                            <li><a href="#faq"><i class="fas fa-chevron-left"></i>الأسئلة الشائعة</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-left"></i>الأسعار</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-left"></i>المدونة</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Services Column -->
+                    <div class="footer-column">
+                        <h4 class="footer-title">خدماتنا</h4>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fas fa-chevron-left"></i>إنشاء المتاجر</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-left"></i>تصميم القوالب</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-left"></i>التسويق الإلكتروني</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-left"></i>الدعم التقني</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-left"></i>التدريب</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-left"></i>الاستشارات</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Column -->
+                    <div class="footer-column">
+                        <h4 class="footer-title">تواصل معنا</h4>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="contact-item-content">
+                                <div class="contact-item-title">العنوان</div>
+                                <div class="contact-item-text">الكويت، مدينة الكويت<br>شارع الخليج العربي</div>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div class="contact-item-content">
+                                <div class="contact-item-title">الهاتف</div>
+                                <div class="contact-item-text">+965 1234 5678</div>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div class="contact-item-content">
+                                <div class="contact-item-title">البريد الإلكتروني</div>
+                                <div class="contact-item-text">info@motkaml.com</div>
+                            </div>
+                        </div>
+
+                        <!-- Newsletter -->
+                        <div class="newsletter-form">
+                            <input type="email" class="newsletter-input" placeholder="بريدك الإلكتروني">
+                            <button class="newsletter-btn">اشتراك</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Bottom -->
+                <div class="footer-bottom">
+                    <div class="footer-copyright">
+                        © 2024 <strong>متكامل</strong>. جميع الحقوق محفوظة.
+                    </div>
+                    <ul class="footer-links-bottom">
+                        <li><a href="#">سياسة الخصوصية</a></li>
+                        <li><a href="#">شروط الاستخدام</a></li>
+                        <li><a href="#">سياسة الإرجاع</a></li>
+                        <li><a href="#">خريطة الموقع</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/9651234567890?text=مرحباً، أريد معرفة المزيد عن منصة متكامل" class="whatsapp-btn"
+            target="_blank" rel="noopener noreferrer" aria-label="تواصل معنا عبر واتساب">
+            <i class="fab fa-whatsapp"></i>
+            <span class="whatsapp-tooltip">تواصل معنا</span>
+        </a>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded',() => {
+            const faqItems=document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const question=item.querySelector('.faq-question');
+                question.addEventListener('click',() => {
+                    const isActive=item.classList.contains('active');
+
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                    });
+
+                    if(!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AOS (Animate On Scroll) Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="assets/js/sections/header.js"></script>
+    <script src="assets/js/sections/hero.js"></script>
+    <script src="assets/js/sections/theme-showcase.js"></script>
+    <script src="assets/js/sections/additional-sections.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
