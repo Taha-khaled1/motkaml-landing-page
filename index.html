@@ -33,9 +33,758 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/sections/footer.css">
     <link rel="stylesheet" href="assets/css/sections/hero.css">
-    <link rel="stylesheet" href="assets/css/sections/theme-showcase.css">
     <link rel="stylesheet" href="assets/css/sections/additional-sections.css">
     <link rel="stylesheet" href="assets/css/sections/header.css">
+
+    <!-- New Sections Styling -->
+    <style>
+        /* Testimonials Section */
+        .testimonials-section {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8ecff 100%);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23e0e7ff" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border: 1px solid #e8ecff;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .testimonial-quote {
+            position: absolute;
+            top: -15px;
+            right: 30px;
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .testimonial-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #2d3748;
+            margin: 20px 0 30px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .author-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a202c;
+            margin: 0;
+        }
+
+        .author-title {
+            font-size: 14px;
+            color: #667eea;
+            margin: 5px 0 0;
+        }
+
+        .testimonial-rating {
+            display: flex;
+            gap: 5px;
+        }
+
+        .testimonial-rating i {
+            color: #fbbf24;
+            font-size: 16px;
+        }
+
+        .video-testimonial {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-container {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #105FAA 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-container:hover {
+            transform: scale(1.02);
+        }
+
+        .video-placeholder {
+            text-align: center;
+            color: white;
+            padding: 40px;
+        }
+
+        .video-placeholder i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .video-placeholder p {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 0 10px;
+        }
+
+        .video-placeholder small {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            background: white;
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .comparison-table-container {
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            display: table;
+        }
+
+        .comparison-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            padding: 0;
+        }
+
+        .comparison-header>div {
+            padding: 25px 20px;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .comparison-header>div:first-child {
+            border-left: none;
+            text-align: right;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            border-bottom: 1px solid #e8ecff;
+            transition: all 0.3s ease;
+        }
+
+        .comparison-row:hover {
+            background: #f8f9ff;
+        }
+
+        .comparison-row.highlighted {
+            background: #f0f4ff;
+            border-color: #667eea;
+        }
+
+        .comparison-row>div {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-left: 1px solid #e8ecff;
+            font-size: 16px;
+        }
+
+        .feature-name {
+            justify-content: flex-end !important;
+            font-weight: 500;
+            color: #2d3748;
+            border-left: none !important;
+        }
+
+        .motkaml-value {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .competitors-value {
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        .motkaml-value i,
+        .competitors-value i {
+            margin-left: 10px;
+            font-size: 18px;
+        }
+
+        /* FAQ Section Fixes */
+        .faq-item {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #e8ecff;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .faq-item.active {
+            border-color: #667eea;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .faq-question {
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #f8f9ff;
+        }
+
+        .faq-item.active .faq-question {
+            background: #f0f4ff;
+            border-bottom: 1px solid #e8ecff;
+        }
+
+        .faq-question h5 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d3748;
+            flex: 1;
+        }
+
+        .faq-toggle {
+            width: 35px;
+            height: 35px;
+            background: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+            background: #5a67d8;
+        }
+
+        .faq-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 30px 25px;
+            max-height: 200px;
+        }
+
+        .faq-answer p {
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #4a5568;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .testimonials-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .testimonial-card {
+                padding: 30px 25px;
+            }
+
+            .video-container {
+                height: 250px;
+            }
+
+            .comparison-header,
+            .comparison-row {
+                grid-template-columns: 1.5fr 1fr 1fr;
+            }
+
+            .comparison-header>div,
+            .comparison-row>div {
+                padding: 15px 10px;
+                font-size: 14px;
+            }
+
+            .feature-name {
+                font-size: 13px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .testimonials-section,
+            .comparison-section {
+                padding: 60px 0;
+            }
+
+            .testimonial-card {
+                padding: 25px 20px;
+            }
+
+            .testimonial-text {
+                font-size: 16px;
+            }
+
+            .video-container {
+                height: 200px;
+            }
+
+            .video-placeholder i {
+                font-size: 40px;
+            }
+
+            .video-placeholder p {
+                font-size: 16px;
+            }
+
+            .comparison-header>div,
+            .comparison-row>div {
+                padding: 12px 8px;
+                font-size: 12px;
+            }
+
+            .faq-question {
+                padding: 20px 25px;
+            }
+
+            .faq-item.active .faq-answer {
+                padding: 0 25px 20px;
+            }
+        }
+
+        /* New Steps Section - Using Site Colors */
+        .new-steps-section {
+            background: var(--bg-secondary);
+            padding: 60px 0;
+            position: relative;
+        }
+
+        /* Countdown Timer */
+        .countdown-container {
+            text-align: center;
+            margin-bottom: 40px;
+            background: var(--primary-color);
+            border-radius: var(--border-radius-lg);
+            padding: 30px 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .countdown-header h2 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .countdown-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--border-radius);
+            padding: 15px 12px;
+            min-width: 60px;
+            animation: pulse 2s infinite;
+        }
+
+        .countdown-number {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .countdown-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 3px;
+        }
+
+        .countdown-separator {
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 600;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* Steps Cards */
+        .steps-cards-container {
+            margin-bottom: 30px;
+        }
+
+        .steps-main-title {
+            text-align: center;
+            color: var(--text-primary);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .steps-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 25px 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid #e9ecef;
+            transition: var(--transition-fast);
+        }
+
+        .step-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .step-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-icon i {
+            font-size: 20px;
+            color: white;
+        }
+
+        .step-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 8px;
+        }
+
+        .step-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* WhatsApp CTA Section */
+        .whatsapp-cta-section {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--primary-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .whatsapp-cta-content h3 {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .offer-highlights {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .offer-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .offer-item i {
+            color: var(--success-color);
+            font-size: 1.1rem;
+        }
+
+        .whatsapp-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .whatsapp-btn-main {
+            background: #25d366;
+            color: white;
+            padding: 15px 30px;
+            border-radius: var(--border-radius-lg);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition-fast);
+            box-shadow: var(--shadow-md);
+            border: none;
+            min-width: 250px;
+            justify-content: center;
+        }
+
+        .whatsapp-btn-main:hover {
+            background: #22c55e;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .whatsapp-btn-secondary {
+            background: transparent;
+            color: var(--primary-color);
+            padding: 12px 25px;
+            border-radius: var(--border-radius-lg);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-fast);
+            border: 2px solid var(--primary-color);
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .whatsapp-btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .new-steps-section {
+                padding: 40px 0;
+            }
+
+            .countdown-container {
+                padding: 25px 15px;
+                margin-bottom: 30px;
+            }
+
+            .countdown-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .countdown-timer {
+                gap: 10px;
+            }
+
+            .countdown-item {
+                padding: 12px 8px;
+                min-width: 50px;
+            }
+
+            .countdown-number {
+                font-size: 1.5rem;
+            }
+
+            .steps-main-title {
+                font-size: 1.5rem;
+            }
+
+            .steps-cards {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .step-card {
+                padding: 20px 15px;
+            }
+
+            .step-icon {
+                width: 45px;
+                height: 45px;
+            }
+
+            .step-icon i {
+                font-size: 18px;
+            }
+
+            .whatsapp-cta-section {
+                padding: 25px 20px;
+            }
+
+            .whatsapp-cta-content h3 {
+                font-size: 1.3rem;
+            }
+
+            .whatsapp-btn-main {
+                min-width: 100%;
+                padding: 15px 20px;
+            }
+
+            .whatsapp-btn-secondary {
+                min-width: 100%;
+                padding: 12px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .countdown-container {
+                padding: 20px 15px;
+            }
+
+            .countdown-header h2 {
+                font-size: 1.3rem;
+            }
+
+            .countdown-header p {
+                font-size: 0.9rem;
+            }
+
+            .countdown-item {
+                padding: 10px 6px;
+                min-width: 45px;
+            }
+
+            .countdown-number {
+                font-size: 1.3rem;
+            }
+
+            .countdown-label {
+                font-size: 0.7rem;
+            }
+
+            .step-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 15px;
+            }
+
+            .whatsapp-cta-content h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
 
 </head>
 
@@ -58,12 +807,7 @@
                                 الرئيسية
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#theme-showcase" class="nav-link">
-                                <!-- <i class="fas fa-palette"></i> -->
-                                القوالب
-                            </a>
-                        </li>
+
                         <li class="nav-item">
                             <a href="#steps" class="nav-link">
                                 <!-- <i class="fas fa-list-ol"></i> -->
@@ -93,7 +837,8 @@
 
                 <!-- Header Actions -->
                 <div class="header-actions">
-                    <a href="#" class="header-cta">
+                    <a href="https://wa.me/96555992062?text=مرحباً، أريد البدء مع منصة متكامل والحصول على العرض المجاني"
+                        class="header-cta" target="_blank" rel="noopener noreferrer">
                         <i class="fas fa-rocket"></i>
                         ابدأ مجاناً
                     </a>
@@ -151,7 +896,8 @@
 
             <!-- Mobile CTA -->
             <div class="mobile-nav-cta">
-                <a href="#" class="mobile-cta-button">
+                <a href="https://wa.me/96555992062?text=مرحباً، أريد البدء مع منصة متكامل والحصول على العرض المجاني"
+                    class="mobile-cta-button" target="_blank" rel="noopener noreferrer">
                     <i class="fas fa-rocket"></i>
                     ابدأ مجاناً لمدة 5 أيام
                 </a>
@@ -179,41 +925,54 @@
                             <!-- Main Headline -->
                             <div class="hero-text" data-aos="fade-up" data-aos-delay="200">
                                 <h1 class="hero-title">
-                                    <span class="hero-title-main">أنشئ متجرك الإلكتروني</span>
-                                    <span class="hero-title-highlight">بسهولة واحترافية</span>
-                                    <span class="hero-title-sub">بدون خبرة تقنية</span>
+                                    <span class="hero-title-main">متجرك الإلكتروني جاهز…</span>
+                                    <span class="hero-title-highlight">في أقل من 24 ساعة 🚀</span>
+                                    <!-- <span class="hero-title-sub" dir="rtl">أنشئ حساب وابدأ البيع من اليوم</span> -->
+
                                 </h1>
 
                                 <p class="hero-description">
-                                    ابدأ رحلتك في التجارة الإلكترونية الآن مع منصة متكامل، واحصل على متجرك في دقائق
-                                    بتصميم أنيق وتكامل فوري مع وسائل الدفع والشحن.
+                                    مع متكامل، نجهز لك متجرك من الصفر، نصمم لك اللوجو، ونعطيك خطة تسويقية… وكل هذا مقابل
+                                    15 د.ك فقط!
                                 </p>
 
                                 <div class="hero-features">
                                     <div class="feature-item" data-aos="fade-up" data-aos-delay="400">
-                                        <i class="fas fa-rocket"></i>
-                                        <span>إنشاء سريع في دقائق</span>
+                                        <i class="fas fa-gift"></i>
+                                        <span>✅ شهر وعليه شهر مجانًا عند الأشتراك</span>
                                     </div>
                                     <div class="feature-item" data-aos="fade-up" data-aos-delay="500">
-                                        <i class="fas fa-shield-alt"></i>
-                                        <span>دفع آمن ومتكامل</span>
+                                        <i class="fas fa-store"></i>
+                                        <span>✅ إنشاء متجرك بالكامل على يد فريق محترف</span>
                                     </div>
                                     <div class="feature-item" data-aos="fade-up" data-aos-delay="600">
-                                        <i class="fas fa-mobile-alt"></i>
-                                        <span>متجاوب مع جميع الأجهزة</span>
+                                        <i class="fas fa-paint-brush"></i>
+                                        <span>✅ تصميم لوجو مجاني</span>
+                                    </div>
+                                    <div class="feature-item" data-aos="fade-up" data-aos-delay="700">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>✅ استشارة تسويقية مجانية</span>
+                                    </div>
+                                    <div class="feature-item" data-aos="fade-up" data-aos-delay="800">
+                                        <i class="fas fa-palette"></i>
+                                        <span>✅ قوالب احترافية</span>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Call to Action Buttons -->
                             <div class="hero-cta" data-aos="fade-up" data-aos-delay="700">
-                                <a href="#" class="btn btn-primary btn-lg cta-primary">
-                                    <i class="fas fa-play-circle me-2"></i>
-                                    جربه مجاناً لمدة 5 أيام
+                                <a href="https://wa.me/96555992062?text=مرحباً، أريد إنشاء متجر إلكتروني والحصول على العرض الخاص"
+                                    class="btn btn-primary btn-lg cta-primary" target="_blank"
+                                    rel="noopener noreferrer">
+                                    <i class="fas fa-phone me-2"></i>
+                                    تواصل معنا الان
                                 </a>
-                                <a href="#theme-showcase" class="btn btn-outline-light btn-lg cta-secondary">
-                                    <i class="fas fa-eye me-2"></i>
-                                    شاهد القوالب
+                                <a href="https://wa.me/96555992062?text=مرحباً، أريد معرفة المزيد من المعلومات عن منصة متكامل"
+                                    class="btn btn-outline-light btn-lg cta-secondary" target="_blank"
+                                    rel="noopener noreferrer">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    المزيد من المعلومات
                                 </a>
                             </div>
 
@@ -283,457 +1042,108 @@
             </div>
         </section>
 
-        <!-- Theme Showcase Section -->
-        <section id="theme-showcase" class="theme-showcase-section">
+
+
+        <!-- Steps Section - New Mobile-Friendly Design -->
+        <section id="steps" class="new-steps-section section">
             <div class="container">
-                <!-- Section Header -->
-                <div class="section-header" data-aos="fade-up">
-                    <h2 class="section-title">
-                        قوالب جميلة ومتنوعة
-                        <span class="title-highlight">لكل نوع من الأعمال</span>
-                    </h2>
-                    <p class="section-description">
-                        اختر من بين مجموعة واسعة من القوالب المصممة خصيصاً لتناسب احتياجاتك التجارية
-                        وتقدم تجربة مستخدم استثنائية لعملائك. جميع القوالب متجاوبة ومحسنة للأداء
-                    </p>
-                </div>
-
-                <!-- Themes Grid -->
-                <div class="themes-grid">
-                    <!-- Basic Theme -->
-                    <div class="theme-card basic-theme" data-aos="fade-up" data-aos-delay="200">
-                        <div class="theme-header">
-                            <div class="theme-badge">أساسي</div>
-                            <!-- <div class="theme-price">
-                                <span class="price">مجاني</span>
-                                <span class="currency">للأبد</span>
-                            </div> -->
-                        </div>
-
-                        <div class="theme-content">
-                            <h3 class="theme-title">القالب الأساسي</h3>
-                            <p class="theme-description">
-                                مثالي للمتاجر الناشئة والأعمال الصغيرة. تصميم نظيف وبسيط يركز على المنتجات
-                            </p>
-
-                            <div class="theme-features">
-                                <div class="feature"><i class="fas fa-check"></i> تصميم متجاوب</div>
-                                <div class="feature"><i class="fas fa-check"></i> سلة تسوق متقدمة</div>
-                                <div class="feature"><i class="fas fa-check"></i> دفع آمن</div>
-                                <div class="feature"><i class="fas fa-check"></i> إدارة المخزون</div>
-                            </div>
-                        </div>
-
-                        <div class="theme-preview">
-                            <div class="preview-container">
-                                <div class="device-showcase">
-                                    <div class="desktop-preview active" data-device="desktop">
-                                        <div class="desktop-mockup">
-                                            <div class="desktop-screen">
-                                                <img src="assets/images/basic_theme_desktop.jpeg"
-                                                    alt="القالب الأساسي - سطح المكتب">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mobile-preview" data-device="mobile">
-                                        <div class="mobile-mockup">
-                                            <div class="mobile-screen">
-                                                <img src="assets/images/basic_theme_mobile.jpeg"
-                                                    alt="القالب الأساسي - الهاتف">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="video-preview" data-device="video">
-                                        <div class="video-container">
-                                            <video muted loop preload="metadata">
-                                                <source src="assets/video/basic_theme.mp4" type="video/mp4">
-                                                متصفحك لا يدعم تشغيل الفيديو.
-                                            </video>
-                                            <div class="video-overlay">
-                                                <div class="play-button">
-                                                    <i class="fas fa-play"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="preview-controls">
-                                    <button class="control-btn active" data-target="desktop">
-                                        <i class="fas fa-desktop"></i>
-                                    </button>
-                                    <button class="control-btn" data-target="mobile">
-                                        <i class="fas fa-mobile-alt"></i>
-                                    </button>
-                                    <button class="control-btn" data-target="video">
-                                        <i class="fas fa-play"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="floating-stats">
-                                <div class="stat-item stat-1">
-                                    <i class="fas fa-users"></i>
-                                    <span>+5K عميل</span>
-                                </div>
-                                <div class="stat-item stat-2">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.8/5</span>
-                                </div>
-                                <div class="stat-item stat-3">
-                                    <i class="fas fa-rocket"></i>
-                                    <span>سريع</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="theme-actions">
-                            <button class="btn-primary">
-                                <i class="fas fa-rocket"></i>
-                                ابدأ الآن
-                            </button>
-                            <button class="btn-secondary">
-                                <i class="fas fa-eye"></i>
-                                معاينة
-                            </button>
-                        </div>
+                <!-- Countdown Timer -->
+                <div class="countdown-container" data-aos="fade-up">
+                    <div class="countdown-header">
+                        <h2>⏰ العرض ينتهي خلال</h2>
+                        <p>لا تفوت الفرصة - العرض محدود لـ 24 ساعة فقط!</p>
                     </div>
 
-                    <!-- Medium Theme -->
-                    <div class="theme-card medium-theme" data-aos="fade-up" data-aos-delay="400">
-                        <div class="theme-header">
-                            <div class="theme-badge">متوسط</div>
-                            <div class="theme-price">
-                                <!-- <span class="price">15</span>
-                                <span class="currency">دينار كويتي/شهر</span> -->
-                            </div>
+                    <div class="countdown-timer">
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="countdown-hours">23</div>
+                            <div class="countdown-label">ساعة</div>
                         </div>
-
-                        <div class="theme-content">
-                            <h3 class="theme-title">القالب المتوسط</h3>
-                            <p class="theme-description">
-                                للأعمال المتنامية التي تحتاج لمزيد من الميزات. تصميم عصري مع إمكانيات متقدمة
-                            </p>
-
-                            <div class="theme-features">
-                                <div class="feature"><i class="fas fa-check"></i> معرض منتجات متقدم</div>
-                                <div class="feature"><i class="fas fa-check"></i> نظام تقييمات</div>
-                                <div class="feature"><i class="fas fa-check"></i> خصومات تلقائية</div>
-                                <div class="feature"><i class="fas fa-check"></i> تكامل اجتماعي</div>
-                            </div>
+                        <div class="countdown-separator">:</div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="countdown-minutes">59</div>
+                            <div class="countdown-label">دقيقة</div>
                         </div>
-
-                        <div class="theme-preview">
-                            <div class="preview-container">
-                                <div class="device-showcase">
-                                    <div class="desktop-preview active" data-device="desktop">
-                                        <div class="desktop-mockup">
-                                            <div class="desktop-screen">
-                                                <img src="assets/images/meduim_theme_desktop.jpeg"
-                                                    alt="القالب المتوسط - سطح المكتب">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mobile-preview" data-device="mobile">
-                                        <div class="mobile-mockup">
-                                            <div class="mobile-screen">
-                                                <img src="assets/images/meduim_theme_mobile.jpeg"
-                                                    alt="القالب المتوسط - الهاتف">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="video-preview" data-device="video">
-                                        <div class="video-container">
-                                            <video muted loop preload="metadata">
-                                                <source src="assets/video/meduim_theme.mp4" type="video/mp4">
-                                                متصفحك لا يدعم تشغيل الفيديو.
-                                            </video>
-                                            <div class="video-overlay">
-                                                <div class="play-button">
-                                                    <i class="fas fa-play"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="preview-controls">
-                                    <button class="control-btn active" data-target="desktop">
-                                        <i class="fas fa-desktop"></i>
-                                    </button>
-                                    <button class="control-btn" data-target="mobile">
-                                        <i class="fas fa-mobile-alt"></i>
-                                    </button>
-                                    <button class="control-btn" data-target="video">
-                                        <i class="fas fa-play"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="floating-stats">
-                                <div class="stat-item stat-1">
-                                    <i class="fas fa-chart-line"></i>
-                                    <span>+200% مبيعات</span>
-                                </div>
-                                <div class="stat-item stat-2">
-                                    <i class="fas fa-heart"></i>
-                                    <span>+10K مفضل</span>
-                                </div>
-                                <div class="stat-item stat-3">
-                                    <i class="fas fa-mobile-alt"></i>
-                                    <span>70% هاتف</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="theme-actions">
-                            <button class="btn-primary">
-                                <i class="fas fa-rocket"></i>
-                                ابدأ الآن
-                            </button>
-                            <button class="btn-secondary">
-                                <i class="fas fa-eye"></i>
-                                معاينة
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Professional Theme -->
-                    <div class="theme-card professional-theme" data-aos="fade-up" data-aos-delay="600">
-                        <div class="theme-header">
-                            <div class="theme-badge">احترافي</div>
-                            <!-- <div class="theme-price">
-                                <span class="price">20</span>
-                                <span class="currency">دينار كويتي/شهر</span>
-                            </div> -->
-                        </div>
-
-                        <div class="theme-content">
-                            <h3 class="theme-title">القالب الاحترافي</h3>
-                            <p class="theme-description">
-                                للشركات الكبيرة والعلامات التجارية الراقية. تصميم فاخر مع ميزات متقدمة
-                            </p>
-
-                            <div class="theme-features">
-                                <div class="feature"><i class="fas fa-check"></i> تصميم فاخر قابل للتخصيص</div>
-                                <div class="feature"><i class="fas fa-check"></i> تحليلات مفصلة</div>
-                                <div class="feature"><i class="fas fa-check"></i> متعدد اللغات</div>
-                                <div class="feature"><i class="fas fa-check"></i> تكامل ERP</div>
-                            </div>
-                        </div>
-
-                        <div class="theme-preview">
-                            <div class="preview-container">
-                                <div class="device-showcase">
-                                    <div class="desktop-preview active" data-device="desktop">
-                                        <div class="desktop-mockup">
-                                            <div class="desktop-screen">
-                                                <img src="assets/images/prof_theme_desktop.jpeg"
-                                                    alt="القالب الاحترافي - سطح المكتب">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mobile-preview" data-device="mobile">
-                                        <div class="mobile-mockup">
-                                            <div class="mobile-screen">
-                                                <img src="assets/images/prof_theme_mobile.jpeg"
-                                                    alt="القالب الاحترافي - الهاتف">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="video-preview" data-device="video">
-                                        <div class="video-container">
-                                            <video muted loop preload="metadata">
-                                                <source src="assets/video/prof_theme.mp4" type="video/mp4">
-                                                متصفحك لا يدعم تشغيل الفيديو.
-                                            </video>
-                                            <div class="video-overlay">
-                                                <div class="play-button">
-                                                    <i class="fas fa-play"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="preview-controls">
-                                    <button class="control-btn active" data-target="desktop">
-                                        <i class="fas fa-desktop"></i>
-                                    </button>
-                                    <button class="control-btn" data-target="mobile">
-                                        <i class="fas fa-mobile-alt"></i>
-                                    </button>
-                                    <button class="control-btn" data-target="video">
-                                        <i class="fas fa-play"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="floating-stats">
-                                <div class="stat-item stat-1">
-                                    <i class="fas fa-crown"></i>
-                                    <span>فاخر</span>
-                                </div>
-                                <div class="stat-item stat-2">
-                                    <i class="fas fa-globe"></i>
-                                    <span>20+ لغة</span>
-                                </div>
-                                <div class="stat-item stat-3">
-                                    <i class="fas fa-shield-alt"></i>
-                                    <span>أمان متقدم</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="theme-actions">
-                            <button class="btn-primary">
-                                <i class="fas fa-rocket"></i>
-                                ابدأ الآن
-                            </button>
-                            <button class="btn-secondary">
-                                <i class="fas fa-eye"></i>
-                                معاينة
-                            </button>
+                        <div class="countdown-separator">:</div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="countdown-seconds">59</div>
+                            <div class="countdown-label">ثانية</div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Steps Cards -->
+                <div class="steps-cards-container" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="steps-main-title">3 خطوات بسيطة للبدء</h3>
 
-            </div>
-        </section>
-
-
-        <!-- Who is this platform for Section -->
-        <!-- <section id="who-section" class="who-section section">
-            <div class="container">
-                <div class="section-header text-center" data-aos="fade-up">
-                    <h2>لمن هذه المنصة؟</h2>
-                    <p>منصة متكامل مصممة لتناسب جميع أنواع الأعمال والطموحات</p>
-                </div>
-
-                <div class="who-grid">
-                    <div class="who-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="who-image">
-                            <img src="assets/images/why1.png" alt="أصحاب الأفكار الطموحة">
-                        </div>
-                        <div class="who-content">
-                            <h4>أصحاب الأفكار الطموحة</h4>
-                            <p>هل فكرتك تستحق الملايين؟ لا تحتاج لخبرة تقنية. كل ما تحتاجه هو الطموح وضغطة زر، ونحن
-                                نتولى الباقي.</p>
-                        </div>
-                    </div>
-
-                    <div class="who-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="who-image">
-                            <img src="assets/images/why2.png" alt="أصحاب المحلات">
-                        </div>
-                        <div class="who-content">
-                            <h4>أصحاب المحلات</h4>
-                            <p>دع العالم يراك ووسع متجرك الإلكتروني. سواء كنت تملك فروعاً أو لديك كشك في البازار، متكامل
-                                سيساعدك على التوسع بنجاح.</p>
-                        </div>
-                    </div>
-
-                    <div class="who-card" data-aos="fade-up" data-aos-delay="300">
-                        <div class="who-image">
-                            <img src="assets/images/why3.png" alt="أصحاب المتاجر الإلكترونية">
-                        </div>
-                        <div class="who-content">
-                            <h4>أصحاب المتاجر الإلكترونية</h4>
-                            <p>عملك في أيدٍ محترفة. نضمن لك أفضل الأدوات والحلول المبتكرة التي تسهل إدارة متجرك وتزيد
-                                أرباحك.</p>
-                        </div>
-                    </div>
-
-                    <div class="who-card" data-aos="fade-up" data-aos-delay="400">
-                        <div class="who-image">
-                            <img src="assets/images/why4.png" alt="أصحاب المتاجر الكبيرة">
-                        </div>
-                        <div class="who-content">
-                            <h4>أصحاب المتاجر الكبيرة</h4>
-                            <p>مستعد لتغيير قواعد اللعبة؟ حلولنا التقنية الشاملة ودعم الخبراء المستمر سيساعدك على رفع
-                                المستوى أمام منافسيك وإرضاء جميع عملائك.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> -->
-
-        <!-- Steps Section with Network Design -->
-        <section id="steps" class="steps-section section">
-            <div class="container">
-                <div class="section-header" data-aos="fade-up">
-                    <h2>خطوات البدء</h2>
-                    <p>ابدأ متجرك الإلكتروني في 5 خطوات بسيطة مع التصميم التفاعلي الجديد</p>
-                </div>
-
-                <div class="steps-container">
-                    <!-- Network Background -->
-                    <div class="network-bg">
-                        <div class="network-dots">
-                            <div class="network-dot"></div>
-                            <div class="network-dot"></div>
-                            <div class="network-dot"></div>
-                            <div class="network-dot"></div>
-                            <div class="network-dot"></div>
-                        </div>
-                        <div class="network-lines">
-                            <div class="network-line" style="top: 30%; left: 10%; width: 40%;"></div>
-                            <div class="network-line" style="top: 50%; left: 25%; width: 50%; animation-delay: 0.5s;">
+                    <div class="steps-cards">
+                        <!-- Step 1 -->
+                        <div class="step-card" data-aos="fade-up" data-aos-delay="300">
+                            <div class="step-icon">
+                                <i class="fab fa-whatsapp"></i>
                             </div>
-                            <div class="network-line" style="top: 70%; left: 40%; width: 60%; animation-delay: 1s;">
+                            <div class="step-content">
+                                <h4>1️⃣ تواصل معنا عبر واتساب</h4>
+                                <p>اضغط على الزر أدناه وأرسل لنا رسالة واحصل على العرض الخاص</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="step-card" data-aos="fade-up" data-aos-delay="400">
+                            <div class="step-icon">
+                                <i class="fas fa-magic"></i>
+                            </div>
+                            <div class="step-content">
+                                <h4>2️⃣ نحن ننشئ متجرك بالكامل</h4>
+                                <p>فريقنا المتخصص يصمم متجرك + لوجو احترافي + خطة تسويقية</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="step-card" data-aos="fade-up" data-aos-delay="500">
+                            <div class="step-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="step-content">
+                                <h4>3️⃣ ابدأ البيع واحصل على الأرباح</h4>
+                                <p>متجرك جاهز في 24 ساعة وتبدأ استقبال الطلبات فوراً</p>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Steps Network -->
-                    <div class="steps-network">
-                        <div class="step-node">
-                            <div class="step-number">1</div>
-                            <div class="step-title">سجل حسابك على المنصة</div>
-                            <div class="step-description">إنشاء حساب مجاني يستغرق أقل من دقيقتين</div>
-                            <div class="step-connection"></div>
+                <!-- WhatsApp CTA -->
+                <div class="whatsapp-cta-section" data-aos="fade-up" data-aos-delay="600">
+                    <div class="whatsapp-cta-content">
+                        <h3>🎁 احصل على العرض الآن</h3>
+                        <div class="offer-highlights">
+                            <div class="offer-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>متجر كامل مقابل 15 د.ك فقط</span>
+                            </div>
+                            <div class="offer-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>شهر إضافي مجاناً</span>
+                            </div>
+                            <div class="offer-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>لوجو احترافي مجاني</span>
+                            </div>
                         </div>
 
-                        <div class="step-node">
-                            <div class="step-number">2</div>
-                            <div class="step-title">اختر تصميم متجرك</div>
-                            <div class="step-description">اختر من بين القوالب المتنوعة المناسبة لنشاطك</div>
-                            <div class="step-connection"></div>
-                        </div>
+                        <div class="whatsapp-buttons">
+                            <a href="https://wa.me/96555992062?text=مرحباً، أريد الاشتراك في العرض المحدود لإنشاء متجر إلكتروني مقابل 15 د.ك مع الشهر المجاني"
+                                class="whatsapp-btn-main" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>اشترك الآن عبر واتساب</span>
+                            </a>
 
-                        <div class="step-node">
-                            <div class="step-number">3</div>
-                            <div class="step-title">أضف منتجاتك ومعلوماتك</div>
-                            <div class="step-description">ارفع صور منتجاتك وأضف الأوصاف والأسعار</div>
-                            <div class="step-connection"></div>
+                            <a href="https://wa.me/96555992062?text=مرحباً، أريد معرفة تفاصيل أكثر عن العرض المحدود"
+                                class="whatsapp-btn-secondary" target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-info-circle"></i>
+                                <span>تفاصيل أكثر</span>
+                            </a>
                         </div>
-
-                        <div class="step-node">
-                            <div class="step-number">4</div>
-                            <div class="step-title">فعل الدفع والشحن</div>
-                            <div class="step-description">اربط وسائل الدفع وشركات الشحن المناسبة</div>
-                            <div class="step-connection"></div>
-                        </div>
-
-                        <div class="step-node">
-                            <div class="step-number">5</div>
-                            <div class="step-title">ابدأ البيع فوراً!</div>
-                            <div class="step-description">متجرك جاهز لاستقبال أول طلبية</div>
-                        </div>
-                    </div>
-
-                    <div class="steps-cta text-center" style="margin-top: 60px;">
-                        <a href="#" class="btn btn-primary btn-lg">
-                            <i class="fas fa-rocket me-2"></i>
-                            ابدأ مجاناً الآن
-                        </a>
                     </div>
                 </div>
             </div>
@@ -743,13 +1153,14 @@
         <section id="why-choose" class="why-choose-section section">
             <div class="container">
                 <div class="section-header" data-aos="fade-up">
-                    <h2>لماذا تختار متكامل؟</h2>
-                    <p>نقدم لك كل ما تحتاجه لإنشاء متجر إلكتروني ناجح مع تصميم تفاعلي مبتكر</p>
+                    <h2>ليه تختار متكامل؟ 💡</h2>
+                    <p>نقدم لك مميزات تنافسية فريدة لا تجدها في أي مكان آخر</p>
                 </div>
 
                 <!-- Network Background -->
                 <div class="network-bg">
                     <div class="network-dots">
+                        <div class="network-dot"></div>
                         <div class="network-dot"></div>
                         <div class="network-dot"></div>
                         <div class="network-dot"></div>
@@ -762,52 +1173,117 @@
                 <div class="why-network">
                     <div class="why-node featured">
                         <div class="why-icon">
-                            <i class="fas fa-user-friends"></i>
+                            <i class="fas fa-rocket"></i>
                         </div>
-                        <div class="why-title">لا تحتاج مبرمج</div>
-                        <div class="why-description">واجهة مستخدم سهلة ومرنة تناسب الجميع</div>
-                    </div>
-
-                    <div class="why-node">
-                        <div class="why-icon">
-                            <i class="fas fa-headset"></i>
-                        </div>
-                        <div class="why-title">دعم فني احترافي</div>
-                        <div class="why-description">فريق جاهز لمساعدتك في كل خطوة</div>
-                    </div>
-
-                    <div class="why-node">
-                        <div class="why-icon">
-                            <i class="fas fa-tags"></i>
-                        </div>
-                        <div class="why-title">أسعار منافسة</div>
-                        <div class="why-description">أفضل قيمة مقابل السعر</div>
+                        <div class="why-title">قوالب احترافية سريعة</div>
+                        <div class="why-description">قوالب جاهزة ومصممة بعناية لجميع أنواع الأعمال</div>
                     </div>
 
                     <div class="why-node">
                         <div class="why-icon">
                             <i class="fas fa-gift"></i>
                         </div>
-                        <div class="why-title">تجربة مجانية</div>
-                        <div class="why-description">لا حاجة لإدخال بيانات الدفع</div>
+                        <div class="why-title">شهر مجاني عند الاشتراك</div>
+                        <div class="why-description">احصل على اشتراك شهرين بسعر 15 د.ك</div>
                     </div>
 
                     <div class="why-node">
                         <div class="why-icon">
-                            <i class="fas fa-palette"></i>
+                            <i class="fas fa-store"></i>
                         </div>
-                        <div class="why-title">قوالب متنوعة</div>
-                        <div class="why-description">قوالب احترافية مناسبة لمختلف الأعمال</div>
+                        <div class="why-title">إنشاء متجر مجاني</div>
+                        <div class="why-description">فريقنا يصمم ويطلق متجرك عنك</div>
                     </div>
 
                     <div class="why-node">
                         <div class="why-icon">
-                            <i class="fas fa-sync-alt"></i>
+                            <i class="fas fa-paint-brush"></i>
                         </div>
-                        <div class="why-title">تحديثات مستمرة</div>
-                        <div class="why-description">تحسينات دورية لضمان أفضل أداء</div>
+                        <div class="why-title">لوجو احترافي مجاني</div>
+                        <div class="why-description">هوية تجارية جاهزة من أول يوم</div>
+                    </div>
+
+                    <div class="why-node">
+                        <div class="why-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="why-title">استشارة تسويقية مجانية</div>
+                        <div class="why-description">خطط تسويق من أول خطوة</div>
+                    </div>
+
+                    <div class="why-node">
+                        <div class="why-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="why-title">دعم فني 24/7</div>
+                        <div class="why-description">نحن معك دائمًا في كل مرحلة</div>
                     </div>
                 </div>
+
+                <div class="text-center" style="margin-top: 40px;">
+                    <a href="https://wa.me/96555992062?text=مرحباً، أريد معرفة المزيد عن مميزات منصة متكامل"
+                        class="btn btn-outline-primary btn-lg" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-info-circle me-2"></i>
+                        المزيد من المعلومات
+                    </a>
+                </div>
+
+                <!-- Customer Testimonials Section -->
+                <section id="testimonials" class="testimonials-section section" style="margin-top: 80px;">
+                    <div class="container">
+                        <div class="section-header text-center" data-aos="fade-up">
+                            <h2>قصص نجاح بدأت من متكامل ❤️</h2>
+                            <p>تعرف على تجارب عملائنا الناجحة وكيف غيرت متكامل حياتهم</p>
+                        </div>
+
+                        <div class="testimonials-container">
+                            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                                <div class="testimonial-content">
+                                    <div class="testimonial-quote">
+                                        <i class="fas fa-quote-right"></i>
+                                    </div>
+                                    <p class="testimonial-text">
+                                        "بدأت متجري مع متكامل بدون ما أعرف أي شي عن التجارة الإلكترونية، وخلال أسبوع كان
+                                        متجري شغال والطلبات تجيني. الفريق دعموني في كل خطوة!"
+                                    </p>
+                                    <div class="testimonial-author">
+                                        <div class="author-info">
+                                            <h5 class="author-name">أحمد العتيبي</h5>
+                                            <p class="author-title">صاحب متجر الأناقة الكويتية</p>
+                                        </div>
+                                        <div class="testimonial-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Video Testimonial Placeholder -->
+                            <div class="video-testimonial" data-aos="fade-up" data-aos-delay="200">
+                                <div class="video-container">
+                                    <div class="video-placeholder">
+                                        <i class="fas fa-play-circle"></i>
+                                        <p style="color: white;">شاهد قصة نجاح أحمد العتيبي</p>
+                                        <small>فيديو قصير: عميل يحكي تجربته ويعرض متجره</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonials-cta text-center" style="margin-top: 40px;">
+                            <a href="https://wa.me/96555992062?text=مرحباً، أريد أن أكون القصة الناجحة التالية مع متكامل"
+                                class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-star me-2"></i>
+                                كن القصة الناجحة التالية
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
                 <br>
                 <!-- Third Party Integration Section -->
                 <div class="third-party-integration">
@@ -850,6 +1326,94 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Comparison Section -->
+                <section id="comparison" class="comparison-section section" style="margin-top: 80px;">
+                    <div class="container">
+                        <div class="section-header text-center" data-aos="fade-up">
+                            <h2>أكثر من منصة… نحن شريك نجاحك</h2>
+                            <p>مقارنة سريعة توضح لماذا متكامل هو الخيار الأفضل</p>
+                        </div>
+
+                        <div class="comparison-table-container" data-aos="fade-up" data-aos-delay="200">
+                            <div class="comparison-table">
+                                <div class="comparison-header">
+                                    <div class="feature-column">الميزة</div>
+                                    <div class="motkaml-column">متكامل ✅</div>
+                                    <div class="competitors-column">المنافسين ❌</div>
+                                </div>
+
+                                <div class="comparison-row">
+                                    <div class="feature-name">شهر مجاني</div>
+                                    <div class="motkaml-value">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span>✅</span>
+                                    </div>
+                                    <div class="competitors-value">
+                                        <i class="fas fa-times-circle text-danger"></i>
+                                        <span>❌</span>
+                                    </div>
+                                </div>
+
+                                <div class="comparison-row">
+                                    <div class="feature-name">انشاء متجر مجاني</div>
+                                    <div class="motkaml-value">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span>✅</span>
+                                    </div>
+                                    <div class="competitors-value">
+                                        <i class="fas fa-times-circle text-danger"></i>
+                                        <span>❌</span>
+                                    </div>
+                                </div>
+
+                                <div class="comparison-row">
+                                    <div class="feature-name">لوجو احترافي مجاني</div>
+                                    <div class="motkaml-value">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span>✅</span>
+                                    </div>
+                                    <div class="competitors-value">
+                                        <i class="fas fa-times-circle text-danger"></i>
+                                        <span>❌</span>
+                                    </div>
+                                </div>
+
+                                <div class="comparison-row">
+                                    <div class="feature-name">استشارة تسويقية</div>
+                                    <div class="motkaml-value">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span>✅</span>
+                                    </div>
+                                    <div class="competitors-value">
+                                        <i class="fas fa-times-circle text-danger"></i>
+                                        <span>❌</span>
+                                    </div>
+                                </div>
+
+                                <div class="comparison-row highlighted">
+                                    <div class="feature-name">دعم عربي محلي</div>
+                                    <div class="motkaml-value">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span>✅</span>
+                                    </div>
+                                    <div class="competitors-value">
+                                        <i class="fas fa-times-circle text-danger"></i>
+                                        <span>❌</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="comparison-cta text-center" style="margin-top: 40px;">
+                            <a href="https://wa.me/96555992062?text=مرحباً، أريد اختيار الأفضل والبدء مع منصة متكامل"
+                                class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-crown me-2"></i>
+                                اختر الأفضل - ابدأ مع متكامل
+                            </a>
+                        </div>
+                    </div>
+                </section>
             </div>
         </section>
 
@@ -864,50 +1428,37 @@
                 <div class="faq-container">
                     <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
                         <div class="faq-question">
-                            <h5>هل أحتاج خبرة برمجية؟</h5>
+                            <h5>هل في رسوم خفية؟</h5>
                             <div class="faq-toggle">
                                 <i class="fas fa-plus"></i>
                             </div>
                         </div>
                         <div class="faq-answer">
-                            <p>إطلاقاً. المنصة متكاملة بالكامل ومصممة لتكون سهلة للجميع، دون الحاجة لأي خبرة تقنية.</p>
+                            <p>لا، أسعارنا واضحة 100%، وما في أي مصاريف مخفية.</p>
                         </div>
                     </div>
 
                     <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
                         <div class="faq-question">
-                            <h5>هل يمكنني تجربة المنصة؟</h5>
+                            <h5>هل أحتاج خبرة تقنية؟</h5>
                             <div class="faq-toggle">
                                 <i class="fas fa-plus"></i>
                             </div>
                         </div>
                         <div class="faq-answer">
-                            <p>نعم، التجربة مجانية بالكامل لمدة 5 أيام.</p>
+                            <p>أبدًا، فريقنا بيجهز لك كل شي.</p>
                         </div>
                     </div>
 
                     <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
                         <div class="faq-question">
-                            <h5>ما هي وسائل الدفع المتاحة؟</h5>
+                            <h5>هل أقدر أغير التصميم لاحقًا؟</h5>
                             <div class="faq-toggle">
                                 <i class="fas fa-plus"></i>
                             </div>
                         </div>
                         <div class="faq-answer">
-                            <p>نوفر مجموعة متنوعة من بوابات الدفع المحلية والعالمية، ويمكنك تفعيلها بسهولة من داخل لوحة
-                                التحكم.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
-                        <div class="faq-question">
-                            <h5>هل يمكنني تغيير التصميم؟</h5>
-                            <div class="faq-toggle">
-                                <i class="fas fa-plus"></i>
-                            </div>
-                        </div>
-                        <div class="faq-answer">
-                            <p>نعم، يمكنك التنقل بين القوالب في أي وقت دون التأثير على متجرك.</p>
+                            <p>أكيد، تقدر تعدل وتحدث متجرك متى ما تحب.</p>
                         </div>
                     </div>
                 </div>
@@ -918,162 +1469,119 @@
         <section id="final-cta" class="final-cta-section section">
             <div class="container">
                 <div class="cta-content text-center" data-aos="fade-up">
-                    <h2>ابدأ ببناء متجرك اليوم</h2>
-                    <p>جرب جميع مميزات المتجر المتكامل دون أي التزام</p>
-                    <a href="#" class="btn btn-primary btn-lg">
+                    <h2>مستني إيه؟ ابدأ تجارتك اليوم واحصل على شهر مجانًا عند الأشتراك🎁</h2>
+                    <p>سجل الآن، العرض ساري لفترة محدودة، واحصل على متجر جاهز، لوجو احترافي، و استشارة تسويقية… كل هذا
+                        مقابل 15د.ك فقط!</p>
+                    <a href="https://wa.me/96555992062?text=مرحباً، أريد البدء في تجارتي الإلكترونية الآن والحصول على العرض المحدود"
+                        class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer">
                         <i class="fas fa-rocket me-2"></i>
-                        ابدأ تجربتك المجانية الآن
+                        ابدأ تجارتك الالكترونية الآن
                     </a>
                 </div>
             </div>
         </section>
 
     </div>
+    <a href="https://wa.me/96555992062?text=مرحباً، أريد البدء في تجارتي الإلكترونية الآن والحصول على العرض المحدود"
+        target="_blank" class="whatsapp-button"></a>
 
-    <!-- Footer Section -->
-    <footer class="footer-section">
-        <div class="footer-content">
-            <div class="footer-container">
-                <!-- Footer Top -->
-                <div class="footer-top">
-                    <!-- Brand Column -->
-                    <div class="footer-brand">
-                        <a href="#hero" class="footer-logo">
-                            <img src="assets/images/logo.svg" alt="متكامل">
-                            <span class="footer-logo-text">متكامل</span>
-                        </a>
-                        <p class="footer-description">
-                            منصة متكامل هي الحل الأمثل لإنشاء متجرك الإلكتروني بسهولة واحترافية. نوفر لك كل ما تحتاجه
-                            لبدء رحلتك في التجارة الإلكترونية بنجاح.
-                        </p>
-                        <div class="footer-social">
-                            <a href="#" class="social-link" aria-label="فيسبوك">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="#" class="social-link" aria-label="تويتر">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="#" class="social-link" aria-label="إنستغرام">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="#" class="social-link" aria-label="لينكد إن">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                            <a href="#" class="social-link" aria-label="يوتيوب">
-                                <i class="fab fa-youtube"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Quick Links Column -->
-                    <div class="footer-column">
-                        <h4 class="footer-title">روابط سريعة</h4>
-                        <ul class="footer-links">
-                            <li><a href="#theme-showcase"><i class="fas fa-chevron-left"></i>القوالب</a></li>
-                            <li><a href="#steps"><i class="fas fa-chevron-left"></i>خطوات البدء</a></li>
-                            <li><a href="#why-choose"><i class="fas fa-chevron-left"></i>لماذا متكامل؟</a></li>
-                            <li><a href="#faq"><i class="fas fa-chevron-left"></i>الأسئلة الشائعة</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-left"></i>الأسعار</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-left"></i>المدونة</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Services Column -->
-                    <div class="footer-column">
-                        <h4 class="footer-title">خدماتنا</h4>
-                        <ul class="footer-links">
-                            <li><a href="#"><i class="fas fa-chevron-left"></i>إنشاء المتاجر</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-left"></i>تصميم القوالب</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-left"></i>التسويق الإلكتروني</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-left"></i>الدعم التقني</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-left"></i>التدريب</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-left"></i>الاستشارات</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Contact Column -->
-                    <div class="footer-column">
-                        <h4 class="footer-title">تواصل معنا</h4>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div class="contact-item-content">
-                                <div class="contact-item-title">العنوان</div>
-                                <div class="contact-item-text">الكويت، مدينة الكويت<br>شارع الخليج العربي</div>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <div class="contact-item-content">
-                                <div class="contact-item-title">الهاتف</div>
-                                <div class="contact-item-text">+965 1234 5678</div>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div class="contact-item-content">
-                                <div class="contact-item-title">البريد الإلكتروني</div>
-                                <div class="contact-item-text">info@motkaml.com</div>
-                            </div>
-                        </div>
-
-                        <!-- Newsletter -->
-                        <div class="newsletter-form">
-                            <input type="email" class="newsletter-input" placeholder="بريدك الإلكتروني">
-                            <button class="newsletter-btn">اشتراك</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Footer Bottom -->
-                <div class="footer-bottom">
-                    <div class="footer-copyright">
-                        © 2024 <strong>متكامل</strong>. جميع الحقوق محفوظة.
-                    </div>
-                    <ul class="footer-links-bottom">
-                        <li><a href="#">سياسة الخصوصية</a></li>
-                        <li><a href="#">شروط الاستخدام</a></li>
-                        <li><a href="#">سياسة الإرجاع</a></li>
-                        <li><a href="#">خريطة الموقع</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Floating WhatsApp Button -->
-    <div class="whatsapp-float">
-        <a href="https://wa.me/9651234567890?text=مرحباً، أريد معرفة المزيد عن منصة متكامل" class="whatsapp-btn"
-            target="_blank" rel="noopener noreferrer" aria-label="تواصل معنا عبر واتساب">
-            <i class="fab fa-whatsapp"></i>
-            <span class="whatsapp-tooltip">تواصل معنا</span>
-        </a>
-    </div>
+    <!-- Universal WhatsApp Link Handler -->
     <script>
-        document.addEventListener('DOMContentLoaded',() => {
-            const faqItems=document.querySelectorAll('.faq-item');
+        document.addEventListener('DOMContentLoaded',function() {
+            // Universal WhatsApp link handler - runs with highest priority
+            document.addEventListener('click',function(e) {
+                const button=e.target.closest('a[href*="wa.me"]');
+                if(button) {
+                    console.log('WhatsApp button clicked:',button.textContent.trim());
+                    console.log('WhatsApp URL:',button.href);
 
-            faqItems.forEach(item => {
-                const question=item.querySelector('.faq-question');
-                question.addEventListener('click',() => {
-                    const isActive=item.classList.contains('active');
+                    // Stop all other event handlers from interfering
+                    e.stopImmediatePropagation();
 
-                    faqItems.forEach(otherItem => {
-                        otherItem.classList.remove('active');
-                    });
-
-                    if(!isActive) {
-                        item.classList.add('active');
+                    // Ensure the link opens in a new tab
+                    if(button.target!=='_blank') {
+                        button.target='_blank';
                     }
-                });
-            });
+
+                    // Force open the WhatsApp link
+                    window.open(button.href,'_blank','noopener,noreferrer');
+
+                    // Prevent any other handlers
+                    e.preventDefault();
+                    return false;
+                }
+            },true); // Use capture phase to run before other handlers
+
+            // Debug all other button clicks
+            document.addEventListener('click',function(e) {
+                if((e.target.closest('a.btn')||e.target.closest('.btn'))&&!e.target.closest('a[href*="wa.me"]')) {
+                    const button=e.target.closest('a.btn')||e.target.closest('.btn');
+                    console.log('Non-WhatsApp button clicked:',button.textContent.trim());
+                    console.log('Button href:',button.href);
+                    console.log('Button classes:',button.className);
+                }
+            },false);
+
+            // 24-Hour Countdown Timer
+            function initCountdown() {
+                const hoursElement=document.getElementById('countdown-hours');
+                const minutesElement=document.getElementById('countdown-minutes');
+                const secondsElement=document.getElementById('countdown-seconds');
+
+                if(!hoursElement||!minutesElement||!secondsElement) return;
+
+                // Set countdown to 24 hours from now (or use a specific end time)
+                let countdownTime=24*60*60; // 24 hours in seconds
+
+                // Check if there's a saved countdown in localStorage
+                const savedEndTime=localStorage.getItem('motkaml-countdown-end');
+                const now=Math.floor(Date.now()/1000);
+
+                if(savedEndTime&&parseInt(savedEndTime)>now) {
+                    // Use saved countdown
+                    countdownTime=parseInt(savedEndTime)-now;
+                } else {
+                    // Set new countdown
+                    const endTime=now+countdownTime;
+                    localStorage.setItem('motkaml-countdown-end',endTime.toString());
+                }
+
+                function updateCountdown() {
+                    const hours=Math.floor(countdownTime/3600);
+                    const minutes=Math.floor((countdownTime%3600)/60);
+                    const seconds=countdownTime%60;
+
+                    hoursElement.textContent=hours.toString().padStart(2,'0');
+                    minutesElement.textContent=minutes.toString().padStart(2,'0');
+                    secondsElement.textContent=seconds.toString().padStart(2,'0');
+
+                    if(countdownTime<=0) {
+                        // Reset countdown when it reaches zero
+                        countdownTime=24*60*60;
+                        const newEndTime=Math.floor(Date.now()/1000)+countdownTime;
+                        localStorage.setItem('motkaml-countdown-end',newEndTime.toString());
+                    } else {
+                        countdownTime--;
+                    }
+                }
+
+                // Update countdown immediately
+                updateCountdown();
+
+                // Update every second
+                setInterval(updateCountdown,1000);
+            }
+
+            // Initialize countdown
+            initCountdown();
         });
     </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <!-- Custom JavaScript -->
     <script src="assets/js/sections/header.js"></script>
     <script src="assets/js/sections/hero.js"></script>
-    <script src="assets/js/sections/theme-showcase.js"></script>
     <script src="assets/js/sections/additional-sections.js"></script>
     <script src="assets/js/main.js"></script>
     <script>

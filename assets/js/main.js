@@ -80,9 +80,15 @@ function initializeSmoothScrolling() {
     
     links.forEach(link => {
         link.addEventListener('click', function(e) {
+            // Don't interfere with WhatsApp links or external links
+            const href = this.getAttribute('href');
+            if (!href || !href.startsWith('#') || this.href.includes('wa.me')) {
+                return; // Let the link work normally
+            }
+            
             e.preventDefault();
             
-            const targetId = this.getAttribute('href');
+            const targetId = href;
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
@@ -137,106 +143,7 @@ function addLoadingState(button, loadingText = 'جاري التحميل...') {
     };
 }
 
-/**
- * Utility function to show notifications
- */
-function showNotification(message, type = 'info', duration = 5000) {
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.textContent = message;
-    
-    // Add notification styles
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: var(--${type === 'success' ? 'success' : type === 'error' ? 'accent' : 'info'}-color);
-        color: white;
-        padding: 15px 20px;
-        border-radius: var(--border-radius);
-        box-shadow: var(--shadow-lg);
-        z-index: 9999;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        max-width: 300px;
-        word-wrap: break-word;
-    `;
-    
-    // Add to document
-    document.body.appendChild(notification);
-    
-    // Animate in
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Remove after duration
-    setTimeout(() => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
-            }
-        }, 300);
-    }, duration);
-}
 
-/**
- * Utility function to validate email
- */
-function validateEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-/**
- * Utility function to validate phone number (Arabic/International)
- */
-function validatePhone(phone) {
-    // Remove all non-digit characters
-    const cleanPhone = phone.replace(/\D/g, '');
-    
-    // Check if it's a valid length (8-15 digits)
-    return cleanPhone.length >= 8 && cleanPhone.length <= 15;
-}
-
-/**
- * Utility function to format numbers in Arabic
- */
-function formatArabicNumber(number) {
-    const arabicNumbers = '٠١٢٣٤٥٦٧٨٩';
-    return number.toString().replace(/[0-9]/g, function(w) {
-        return arabicNumbers[+w];
-    });
-}
-
-/**
- * Utility function to handle API calls
- */
-async function apiCall(url, options = {}) {
-    const defaultOptions = {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
-    };
-    
-    const mergedOptions = { ...defaultOptions, ...options };
-    
-    try {
-        const response = await fetch(url, mergedOptions);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        return await response.json();
-    } catch (error) {
-        console.error('API call failed:', error);
-        throw error;
-    }
-}
 
 /**
  * Utility function to debounce function calls
@@ -272,9 +179,6 @@ function throttle(func, limit) {
 // Global utilities object for easy access
 window.MotkamlUtils = {
     addLoadingState,
-    showNotification,
-    validateEmail,
-    validatePhone,
     formatArabicNumber,
     apiCall,
     debounce,

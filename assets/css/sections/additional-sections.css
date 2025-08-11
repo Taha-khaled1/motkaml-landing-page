@@ -1164,8 +1164,7 @@
 }
 
 /* Add WhatsApp Icon to Body */
-body::after {
-    content: '';
+.whatsapp-button {
     position: fixed;
     bottom: 30px;
     right: 30px;
@@ -1179,9 +1178,8 @@ body::after {
     animation: whatsappFloat 3s ease-in-out infinite, whatsappPulse 2s ease-in-out infinite;
     box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
 }
-
 @media (max-width: 767.98px) {
-    body::after {
+    .whatsapp-button {
         width: 60px;
         height: 60px;
         bottom: 20px;
@@ -1190,7 +1188,7 @@ body::after {
 }
 
 @media (max-width: 575.98px) {
-    body::after {
+    .whatsapp-button {
         width: 55px;
         height: 55px;
     }

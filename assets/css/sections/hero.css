@@ -66,13 +66,14 @@
     background-clip: text;
     animation: fadeInUp 1s ease-out 0.4s both;
 }
-
 .hero-title-sub {
     display: block;
     font-size: 2.5rem;
     color: #E8F4FD;
     font-weight: 600;
-    animation: fadeInUp 1s ease-out 0.6s both;
+   
+    direction: rtl;
+    unicode-bidi: plaintext;
 }
 
 .hero-description {
@@ -113,7 +114,7 @@
 
 .feature-item i {
     font-size: 1.2rem;
-    color: var(--primary-color);
+    color: white;
 }
 
 /* Call to Action Buttons */
@@ -121,12 +122,13 @@
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
+      color: white;
     flex-wrap: wrap;
 }
 
 .cta-primary {
     background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
-    color: #2C3E50;
+  color: white;
     font-weight: 700;
     padding: 1rem 2rem;
     border-radius: var(--border-radius-lg);
@@ -138,7 +140,7 @@
 .cta-primary:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
-    color: #2C3E50;
+  color: white;
 }
 
 .cta-secondary {

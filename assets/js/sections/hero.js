@@ -87,13 +87,24 @@ class HeroSection {
         
         ctaButtons.forEach(button => {
             button.addEventListener('click', (e) => {
-                // Add click animation
+                // Check if button has WhatsApp link - if so, let it work normally
+                if (button.href && button.href.includes('wa.me')) {
+                    // Just add click animation and let the link work
+                    button.style.transform = 'translateY(-3px) scale(0.95)';
+                    setTimeout(() => {
+                        button.style.transform = 'translateY(-3px) scale(1)';
+                    }, 150);
+                    // Don't prevent default - let WhatsApp link work
+                    return;
+                }
+
+                // Add click animation for non-WhatsApp buttons
                 button.style.transform = 'translateY(-3px) scale(0.95)';
                 setTimeout(() => {
                     button.style.transform = 'translateY(-3px) scale(1)';
                 }, 150);
 
-                // Handle different button actions
+                // Handle different button actions (only for non-WhatsApp buttons)
                 if (button.classList.contains('cta-primary')) {
                     this.handleFreeTrial(e);
                 } else if (button.classList.contains('cta-secondary')) {
@@ -113,10 +124,14 @@ class HeroSection {
     }
 
     handleFreeTrial(e) {
+        // Don't prevent default if it's a WhatsApp link
+        const button = e.target.closest('.btn');
+        if (button.href && button.href.includes('wa.me')) {
+            return; // Let WhatsApp link work
+        }
         e.preventDefault();
         
         // Show loading state
-        const button = e.target.closest('.btn');
         const originalText = button.innerHTML;
         button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>جاري التحميل...';
         button.disabled = true;
@@ -135,6 +150,11 @@ class HeroSection {
     }
 
     handleViewThemes(e) {
+        // Don't prevent default if it's a WhatsApp link
+        const button = e.target.closest('.btn');
+        if (button.href && button.href.includes('wa.me')) {
+            return; // Let WhatsApp link work
+        }
         e.preventDefault();
         const themeSection = document.querySelector('#theme-showcase');
         if (themeSection) {
